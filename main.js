@@ -8,8 +8,8 @@ const slash = require("slash");
 const log = require("electron-log");
 
 const Environment = {
-    DEVELOPMENT: 'development',
-    PRODUCTION: 'production'
+  DEVELOPMENT: "development",
+  PRODUCTION: "production",
 };
 
 // Set env
@@ -36,8 +36,8 @@ function createMainWindow() {
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
-
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
+  mainWindow.on("closed", () => (mainWindow = null));
 }
 
 function createAboutWindow() {
@@ -49,17 +49,17 @@ function createAboutWindow() {
     icon: `${__dirname}/assets/icons/Icon_256x256.png`,
     resizable: false,
     backgroundColor: "white",
+    movable: false,
+    minimizable: false,
   });
   aboutWindow.loadURL(`file://${__dirname}/app/about.html`);
+  aboutWindow.on("closed", () => (aboutWindow = null));
 }
 
 app.on("ready", () => {
   createMainWindow();
-
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);
-
-  mainWindow.on("ready", () => (mainWindow = null));
 });
 
 const menu = [
