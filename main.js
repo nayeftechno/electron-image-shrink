@@ -19,7 +19,7 @@ let aboutWindow;
 function createMainWindow() {
   mainWindow = new BrowserWindow({
     title: "ImageShrink",
-    width: isDev ? 800 : 500,
+    width: 500,
     height: 600,
     icon: `${__dirname}/assets/icons/Icon_256x256.png`,
     resizable: isDev ? true : false,
@@ -28,7 +28,6 @@ function createMainWindow() {
       nodeIntegration: true,
     },
   });
-
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
@@ -38,6 +37,7 @@ function createMainWindow() {
 
 function createAboutWindow() {
   aboutWindow = new BrowserWindow({
+    parent: mainWindow,
     title: "About ImageShrink",
     width: 300,
     height: 300,
