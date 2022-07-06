@@ -1,1 +1,1 @@
-# electron-image-shrink
+# electron-image-shrink-App
