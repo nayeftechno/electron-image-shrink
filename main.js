@@ -7,8 +7,13 @@ const imageminPngquant = require("imagemin-pngquant");
 const slash = require("slash");
 const log = require("electron-log");
 
+const Environment = {
+    DEVELOPMENT: 'development',
+    PRODUCTION: 'production'
+};
+
 // Set env
-process.env.NODE_ENV = "production";
+process.env.NODE_ENV = Environment.PRODUCTION;
 
 const isDev = process.env.NODE_ENV !== "production" ? true : false;
 const isMac = process.platform === "darwin" ? true : false;
