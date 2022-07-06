@@ -37,7 +37,7 @@ function createMainWindow() {
     mainWindow.webContents.openDevTools();
   }
 
-  mainWindow.loadFile("./app/index.html");
+  mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 }
 
 function createAboutWindow() {
@@ -50,8 +50,7 @@ function createAboutWindow() {
     resizable: false,
     backgroundColor: "white",
   });
-
-  aboutWindow.loadFile("./app/about.html");
+  aboutWindow.loadURL(`file://${__dirname}/app/about.html`);
 }
 
 app.on("ready", () => {
