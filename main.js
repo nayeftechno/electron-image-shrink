@@ -6,6 +6,7 @@ const imageminMozjpeg = require("imagemin-mozjpeg");
 const imageminPngquant = require("imagemin-pngquant");
 const slash = require("slash");
 const log = require("electron-log");
+const menu = require("./menu");
 
 const Environment = {
   DEVELOPMENT: "development",
@@ -58,54 +59,11 @@ function createAboutWindow() {
 
 app.on("ready", () => {
   createMainWindow();
-  const mainMenu = Menu.buildFromTemplate(menu);
+  const mainMenu = Menu.buildFromTemplate(
+    menu(isMac, isDev, app.appName, createAboutWindow)
+  );
   Menu.setApplicationMenu(mainMenu);
 });
-
-const menu = [
-  ...(isMac
-    ? [
-        {
-          label: app.name,
-          submenu: [
-            {
-              label: "About",
-              click: createAboutWindow,
-            },
-          ],
-        },
-      ]
-    : []),
-  {
-    role: "fileMenu",
-  },
-  ...(!isMac
-    ? [
-        {
-          label: "Help",
-          submenu: [
-            {
-              label: "About",
-              click: createAboutWindow,
-            },
-          ],
-        },
-      ]
-    : []),
-  ...(isDev
-    ? [
-        {
-          label: "Developer",
-          submenu: [
-            { role: "reload" },
-            { role: "forcereload" },
-            { type: "separator" },
-            { role: "toggledevtools" },
-          ],
-        },
-      ]
-    : []),
-];
 
 ipcMain.on("image:minimize", (e, options) => {
   options.dest = path.join(os.homedir(), "imageshrink");
