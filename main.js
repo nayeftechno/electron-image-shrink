@@ -15,7 +15,7 @@ const Environment = {
 // Set env
 process.env.NODE_ENV = Environment.PRODUCTION;
 
-const isDev = process.env.NODE_ENV !== "production" ? true : false;
+const isDev = process.env.NODE_ENV !== Environment.PRODUCTION ? true : false;
 const isMac = process.platform === "darwin" ? true : false;
 
 let mainWindow;
@@ -127,8 +127,6 @@ async function shrinkImage({ imgPath, quality, dest }) {
     });
 
     log.info(files);
-
-    //     Changed from shell.openItem() for v9
     shell.openPath(dest);
 
     mainWindow.webContents.send("image:done");
