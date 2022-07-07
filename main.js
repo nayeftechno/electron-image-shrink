@@ -4,7 +4,7 @@ const { app, BrowserWindow, Menu, ipcMain, shell } = require("electron");
 const imagemin = require("imagemin");
 const imageminMozjpeg = require("imagemin-mozjpeg");
 const imageminPngquant = require("imagemin-pngquant");
-const slash = require("slash");
+const slash = require("slash"); // Convert Windows backslash paths to slash paths: foo\\bar ➔ foo/bar
 const log = require("electron-log");
 const menu = require("./menu");
 
@@ -85,6 +85,9 @@ async function shrinkImage({ imgPath, quality, dest }) {
     });
 
     log.info(files);
+    // macOS: ~/Library/Logs/imageshrink/main.log
+    // Windows: %USERPROFILE%\AppData\Roaming\imageshrink\logs\main.log
+    // Linux: ~/.config/imageshrink/logs/main.log
     shell.openPath(dest);
 
     mainWindow.webContents.send("image:done");
