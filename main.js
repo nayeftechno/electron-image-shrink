@@ -83,14 +83,15 @@ async function shrinkImage({ imgPath, quality, dest }) {
         }),
       ],
     });
-
+    // log info about converted files.
     log.info(files);
     // macOS: ~/Library/Logs/imageshrink/main.log
     // Windows: %USERPROFILE%\AppData\Roaming\imageshrink\logs\main.log
     // Linux: ~/.config/imageshrink/logs/main.log
     shell.openPath(dest);
-
+    // Open folder.
     mainWindow.webContents.send("image:done");
+    // Send to renderer process that resize is done 👍 👍 👍 .
   } catch (err) {
     log.error(err);
   }
