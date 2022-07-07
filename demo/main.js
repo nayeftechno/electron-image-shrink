@@ -16,7 +16,7 @@ function createMainWin(){
 };
 
 function createAboutWin(){
-    mainWin = new BrowserWindow({
+    aboutWin = new BrowserWindow({
         title: 'Home',
         width: 300,
         height: 400,
